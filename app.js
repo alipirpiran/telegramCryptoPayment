@@ -22,9 +22,15 @@ async function getCurrencies() {
 	return instance.getCurrencies();
 }
 
-async function getPayments() {
+async function getPayments({
+														 offset,
+														 count
+													 } = {}) {
 	const instance = Invoice.cryptoPaymentInstance;
-	return instance.getPayments();
+	return instance.getPayments({
+		offset,
+		count
+	});
 }
 
 module.exports = {

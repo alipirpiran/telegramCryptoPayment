@@ -1,4 +1,4 @@
-const APIClient = require('./api');
+const APIClient = require('./core/api');
 const Invoice = require('./invoice.js');
 const Currency = require('./currency.js');
 
