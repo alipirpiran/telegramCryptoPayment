@@ -1,5 +1,7 @@
 const APIClient = require('./api')
 const Invoice = require('./invoice.js')
+const Currency = require('./currency.js')
+
 const config = require('./config')
 
 
@@ -100,14 +102,17 @@ class CryptoPayment {
     })
   }
 
-  confirmPayment(invoice_id) {
-    return this.apiClient.confirmPayment({
-      invoice_id
-    })
+  async confirmPayment(invoice_id) {
+    console.log(invoice_id)
+    return this.apiClient.confirmPayment(invoice_id)
   }
 
   async getBalance() {
     return this.apiClient.getBalance()
+  }
+
+  async getExchangeRates() {
+    return this.apiClient.getExchangeRates()
   }
 }
 

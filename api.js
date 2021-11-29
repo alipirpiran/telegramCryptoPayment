@@ -8,12 +8,6 @@ class APIClient {
     APIClient.instance = this
   }
 
-  getMe() {
-    return this.client.post('/getMe')
-  }
-  getCurrencies() {
-    return this.client.post('/getCurrencies')
-  }
 
   createInvoice(body) {
     const {
@@ -38,25 +32,14 @@ class APIClient {
 
   async getInvoices({
     asset,
-    invoice_ids = [],
-    status = 'all',
+    invoice_ids,
+    status,
     offset,
     count,
   }) {
-
-    let _invoice_ids = invoice_ids.join(',')
-
-    if (status == 'all') {
-      status = undefined
-    }
-
-    if (_invoice_ids.trim() == '')
-      _invoice_ids = undefined
-
-
     const res = await this.client.post('/getInvoices', {
       asset,
-      invoice_ids: _invoice_ids,
+      invoice_ids,
       status,
       offset,
       count,
@@ -79,7 +62,22 @@ class APIClient {
     return this.client.post('/confirmPayment', {
       invoice_id
     })
+  }
 
+  getMe() {
+    return this.client.post('/getMe')
+  }
+
+  getCurrencies() {
+    return this.client.post('/getCurrencies')
+  }
+
+  getBalance() {
+    return this.client.post('/getBalance')
+  }
+
+  getExchangeRates() {
+    return this.client.post('/getExchangeRates')
   }
 }
 

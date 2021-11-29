@@ -10,7 +10,7 @@ class Invoice {
     paid_btn_name,
     paid_btn_url,
     payload
-  }
+  } = {}
   ) {
     if (typeof created_at == 'string') {
       created_at = new Date(created_at)
@@ -23,7 +23,16 @@ class Invoice {
     this.paid_btn_url = paid_btn_url
     this.payload = payload
 
-    this.is_created = false
+    this.invoice_id = 0
+    this.status = ''
+    this.hash = ''
+    this.pay_url = ''
+    this.created_at = ''
+    this.allow_comments = true
+    this.allow_anonymous = true
+    this.is_confirmed = false
+
+
 
   }
 
@@ -33,7 +42,8 @@ class Invoice {
 
 
   async confirmPayment() {
-    return Invoice.cryptoPaymentInstance.confirmPayment(this.invoice_id)
+    const res = await Invoice.cryptoPaymentInstance.confirmPayment(this.invoice_id)
+    return Invoice.fromJson(res)
   }
 
   static async create({
@@ -45,7 +55,7 @@ class Invoice {
     payload
   }) {
 
-    return this.cryptoPaymentInstance.createInvoice({
+    const res = await this.cryptoPaymentInstance.createInvoice({
       asset,
       amount,
       description,
@@ -53,6 +63,8 @@ class Invoice {
       paid_btn_url,
       payload
     })
+
+    return Invoice.fromJson(res)
   }
 
   static async find({
@@ -71,6 +83,7 @@ class Invoice {
       count,
     })
   }
+
   static async findOne({
     asset,
     invoice_ids = [],
@@ -90,21 +103,20 @@ class Invoice {
     return invoices[0]
   }
 
+  static async findById(invoice_id) {
 
-  static fromJson(body) {
-    let invoice = new Invoice({
-      invoice_id: body.invoice_id,
-      status: body.status,
-      hash: body.hash,
-      asset: body.asset,
-      amount: body.amount,
-      pay_url: body.pay_url,
-      description: body.description,
-      created_at: new Date(body.created_at),
-      is_confirmed: body.is_confirmed
+    const invoices = await this.cryptoPaymentInstance.getInvoices({
+      invoice_ids: [invoice_id],
     })
 
-    invoice.is_created = true
+    return invoices[0]
+  }
+
+
+
+  static fromJson(body) {
+    let invoice = new Invoice()
+    Object.assign(invoice, body)
 
     invoice = Object.seal(invoice)
 
