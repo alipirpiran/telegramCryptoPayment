@@ -29,7 +29,7 @@ async function main() {
   // const res = await inc.create()
 }
 
-main()
+//main()
 
 module.exports = {
   app,
