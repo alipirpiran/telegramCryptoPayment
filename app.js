@@ -1,6 +1,7 @@
 const CryptoPayment = require('./cryptoPayment')
 
 async function connect(token, test = false) {
+  CryptoPayment.
 
 }
 async function getBalance() {
