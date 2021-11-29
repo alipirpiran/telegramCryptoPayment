@@ -1,8 +1,7 @@
-const app = require('./app')
-const Invoice = require('./invoice')
-
+const app = require('./app');
+const Invoice = require('./invoice');
 
 module.exports = {
-  app,
-  Invoice,
+	app,
+	Invoice,
 };
