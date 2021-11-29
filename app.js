@@ -20,6 +20,7 @@ async function getCurrencies() {
 }
 
 module.exports = {
+  connect,
   getBalance,
   getExchangeRates,
   getCurrencies
