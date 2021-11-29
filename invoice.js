@@ -33,7 +33,7 @@ class Invoice {
 
 
   async confirmPayment() {
-    return this.cryptoPaymentInstance.confirmPayment(this.invoice_id)
+    return Invoice.cryptoPaymentInstance.confirmPayment(this.invoice_id)
   }
 
   static async create({
