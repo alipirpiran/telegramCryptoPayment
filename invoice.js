@@ -2,6 +2,7 @@ const CryptoPayment = require('./cryptoPayment')
 
 class Invoice {
   static cryptoPaymentInstance;
+
   constructor({
     asset,
     amount,
@@ -30,14 +31,9 @@ class Invoice {
     return this.status == 'active'
   }
 
-  getCPInstance() {
-    return CryptoPayment.instance
-  }
 
   async confirmPayment() {
-    const instance = CryptoPayment.instance
-
-    return instance.confirmPayment(this.invoice_id)
+    return this.cryptoPaymentInstance.confirmPayment(this.invoice_id)
   }
 
   static async create({
@@ -48,9 +44,8 @@ class Invoice {
     paid_btn_url,
     payload
   }) {
-    const instance = CryptoPayment.instance
 
-    return instance.createInvoice({
+    return this.cryptoPaymentInstance.createInvoice({
       asset,
       amount,
       description,
@@ -67,9 +62,8 @@ class Invoice {
     offset,
     count,
   } = {}) {
-    const instance = this.cryptoPaymentInstance
 
-    return instance.getInvoices({
+    return this.cryptoPaymentInstance.getInvoices({
       asset,
       invoice_ids,
       status,
@@ -84,9 +78,8 @@ class Invoice {
     offset,
     count,
   } = {}) {
-    const instance = CryptoPayment.instance
 
-    const invoices = await instance.getInvoices({
+    const invoices = await this.cryptoPaymentInstance.getInvoices({
       asset,
       invoice_ids,
       status,

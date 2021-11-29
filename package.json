@@ -1,6 +1,6 @@
 {
   "name": "tgcryptopayment",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "npm module for Crypto Pay API",
   "main": "index.js",
   "scripts": {
