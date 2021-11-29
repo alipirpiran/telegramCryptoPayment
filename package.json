@@ -1,0 +1,14 @@
+{
+  "name": "cryptobotmodule",
+  "version": "1.0.0",
+  "description": "npm module for Crypto Pay API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ali pirpiran",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.24.0"
+  }
+}
