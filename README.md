@@ -44,7 +44,7 @@ return:
 */
 ```
 
-###confirmPayment()
+### confirmPayment()
 ```javascript
 const {Invoice} = require('tgcryptopayment');
 
