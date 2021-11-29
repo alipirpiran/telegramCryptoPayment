@@ -1,5 +1,5 @@
 {
-  "name": "cryptobotmodule",
+  "name": "telegramCryptoPayment",
   "version": "1.0.0",
   "description": "npm module for Crypto Pay API",
   "main": "index.js",
