@@ -1,6 +1,7 @@
 const CryptoPayment = require('./cryptoPayment')
 
 class Invoice {
+  static cryptoPaymentInstance;
   constructor({
     asset,
     amount,
@@ -27,6 +28,10 @@ class Invoice {
 
   get is_active() {
     return this.status == 'active'
+  }
+
+  getCPInstance() {
+    return CryptoPayment.instance
   }
 
   async confirmPayment() {
@@ -62,7 +67,7 @@ class Invoice {
     offset,
     count,
   } = {}) {
-    const instance = CryptoPayment.instance
+    const instance = this.cryptoPaymentInstance
 
     return instance.getInvoices({
       asset,

@@ -1,40 +1,32 @@
-
-const Client = require('./network')
 const APIClient = require('./api')
+const Invoice = require('./invoice.js')
 const config = require('./config')
 
-const Invoice = require('./invoice')
-const Currency = require('./currency')
 
 class CryptoPayment {
-  static instance;
 
   constructor(token, test = false) {
     const url = test ? config.API_URL.testnet : config.API_URL.mainnet
 
-    this.client = new Client(url, token)
-    this.token = token;
+    this.apiClient = new APIClient(url, token)
   }
 
   static async connect(token, test) {
     const cp = new CryptoPayment(token, test)
-    this.instance = cp
-    await this.instance.getMe()
-    return this.instance
-  }
+    await cp.getMe()
 
-  static get instance() {
-    if (this.instance == null) throw new Error('CryptoPayment is not connected.')
-    return this.instance
-  }
+    Invoice.cryptoPaymentInstance = cp
 
+    return cp
+  }
 
 
   getMe() {
-    return this.client.post('/getMe')
+    return this.apiClient.getMe()
   }
+
   async getCurrencies() {
-    const res = await this.client.post('/getCurrencies')
+    const res = await this.apiClient.getCurrencies()
 
     const currencies = res.map(val => {
       return Currency.fromJson(val)
@@ -53,7 +45,7 @@ class CryptoPayment {
       payload
     } = body
 
-    return this.client.post('/createInvoice', {
+    return this.apiClient.createInvoice({
       asset,
       amount,
       description,
@@ -70,7 +62,7 @@ class CryptoPayment {
     status = 'all',
     offset,
     count,
-  }) {
+  } = {}) {
 
     let _invoice_ids = invoice_ids.join(',')
 
@@ -82,7 +74,7 @@ class CryptoPayment {
       _invoice_ids = undefined
 
 
-    const res = await this.client.post('/getInvoices', {
+    const res = await this.apiClient.getInvoices({
       asset,
       invoice_ids: _invoice_ids,
       status,
@@ -102,17 +94,20 @@ class CryptoPayment {
     offset,
     count
   } = {}) {
-    return this.client.post('/getPayments', {
+    return this.apiClient.getPayments({
       offset,
       count
     })
   }
 
   confirmPayment(invoice_id) {
-    return this.client.post('/confirmPayment', {
+    return this.apiClient.confirmPayment({
       invoice_id
     })
+  }
 
+  async getBalance() {
+    return this.apiClient.getBalance()
   }
 }
 

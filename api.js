@@ -4,9 +4,7 @@ class APIClient {
   static instance;
 
   constructor(url, token) {
-
     this.client = new Client(url, token)
-
     APIClient.instance = this
   }
 
@@ -63,12 +61,7 @@ class APIClient {
       offset,
       count,
     })
-
-    const invoices = res.items.map(val => {
-      return Invoice.fromJson(val)
-    })
-
-    return invoices
+    return res
   }
 
 

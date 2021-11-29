@@ -10,9 +10,9 @@ const appName = 'app'
 
 
 async function main() {
-  const cp = new CryptoPayment(token, true)
-  const res = await cp.getCurrencies()
-  console.log(res)
+  const res = await app.connect(token, true)
+
+  //console.log(CryptoPayment.instance)
   // const res = await cp.createInvoice({
   //   asset: 'TON',
   //   amount: '2',
@@ -27,6 +27,8 @@ async function main() {
   //   amount: '2',
   // })
   // const res = await inc.create()
+  //console.log(await app.getBalance())
+  console.log(await Invoice.find())
 }
 
 //main()
