@@ -61,7 +61,7 @@ class Invoice {
     status = 'all',
     offset,
     count,
-  }) {
+  } = {}) {
     const instance = CryptoPayment.instance
 
     return instance.getInvoices({
@@ -71,6 +71,25 @@ class Invoice {
       offset,
       count,
     })
+  }
+  static async findOne({
+    asset,
+    invoice_ids = [],
+    status = 'all',
+    offset,
+    count,
+  } = {}) {
+    const instance = CryptoPayment.instance
+
+    const invoices = await instance.getInvoices({
+      asset,
+      invoice_ids,
+      status,
+      offset,
+      count,
+    })
+
+    return invoices[0]
   }
 
 
