@@ -7,7 +7,7 @@ npm i tgcryptopayment
 ```
 
 ## How to use
-
+#### app.connect(token, is_test)
 ```javascript
 const {Invoice, app} = require('tgcryptopayment');
 
@@ -92,21 +92,3 @@ return:
   Promise<Payment>
 */
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
