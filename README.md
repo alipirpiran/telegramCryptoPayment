@@ -22,7 +22,19 @@ app.connect(token, true).then(() => {
 
 ## Invoice
 
-### find
+### create({asset, amount, description, paid_btn_name, paid_btn_url, payload})
+
+```javascript
+const {Invoice} = require('tgcryptopayment');
+
+Invoice.create({asset: 'TON', amount: '.2'});
+/*
+return:
+  Promise<Invoice>
+ */
+```
+
+### find({asset, invoice_ids, status, offset, count})
 
 ```javascript
 const {Invoice} = require('tgcryptopayment');
@@ -33,6 +45,18 @@ return:
   Promise<[Invoice]>
  */
 ```
+### findOne({asset, invoice_ids, status, offset, count})
+
+```javascript
+const {Invoice} = require('tgcryptopayment');
+
+Invoice.findOne({asset: 'TON'})
+/*
+return:
+  Promise<Invoice>
+ */
+```
+
 ### findById(invoice_id)
 ```javascript
 const {Invoice} = require('tgcryptopayment');
